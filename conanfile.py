@@ -151,8 +151,7 @@ class OpenCVConan(ConanFile):
 
     def package_info(self):
         self.cpp_info.includedirs = ['include']  # Ordered list of include paths
-        self.cpp_info.libs = ['opencv_aruco', 'opencv_calib3d', 'opencv_core', 'opencv_features2d', 'opencv_flann'
-                              'opencv_imgcodecs', 'opencv_imgproc', 'opencv_ml',
-                              'opencv_video'] # The libs to link against
-
+        for option, activated in self.options.items():
+            if activated == 'True':
+                self.cpp_info.libs.append(option)
         self.cpp_info.libdirs = ['lib']  # Directories where libraries can be found
