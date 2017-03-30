@@ -28,7 +28,8 @@ class OpenCVConan(ConanFile):
         'opencv_shape': [True, False],
         'opencv_objdetect': [True, False],
         'opencv_photo': [True, False],
-        'opencv_stitching': [True, False]
+        'opencv_stitching': [True, False],
+	'shared': [True, False]
     }
 
     default_options = 'opencv_core=True', \
@@ -44,7 +45,8 @@ class OpenCVConan(ConanFile):
         'opencv_shape=False', \
         'opencv_objdetect=False', \
         'opencv_photo=False', \
-        'opencv_stitching=False'
+        'opencv_stitching=False', \
+	'shared=False'
 
     def source(self):
         self.run('git clone --depth 1 --branch %s https://github.com/opencv/opencv.git' % self.lib_version)
@@ -58,7 +60,7 @@ class OpenCVConan(ConanFile):
                          'CMAKE_INSTALL_RPATH="\$ORIGIN/../lib"',
                          'CMAKE_BUILD_TYPE=%s' % self.settings.build_type,
                          'CMAKE_CONFIGURATION_TYPES=%s' % self.settings.build_type,
-                         'BUILD_SHARED_LIBS=ON',
+#                         'BUILD_SHARED_LIBS=OFF',
                          'BUILD_PACKAGE=OFF',
                          'BUILD_PERF_TESTS=OFF',
                          'BUILD_TESTS=OFF',
@@ -109,6 +111,10 @@ class OpenCVConan(ConanFile):
                          'WITH_LIBV4L=OFF',
                          'WITH_MATLAB=OFF',
                          'WITH_VTK=OFF']
+	if self.options.shared == False:
+		cmake_options.append('BUILD_SHARED_LIBS=OFF')
+	else:
+		cmake_options.append('BUILD_SHARED_LIBS=ON')
 
         option_names = {
             'BUILD_opencv_core': self.options.opencv_core,
