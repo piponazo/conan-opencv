@@ -29,7 +29,7 @@ class OpenCVConan(ConanFile):
         'opencv_objdetect': [True, False],
         'opencv_photo': [True, False],
         'opencv_stitching': [True, False],
-	'shared': [True, False]
+        'shared': [True, False]
     }
 
     default_options = 'opencv_core=True', \
@@ -60,7 +60,6 @@ class OpenCVConan(ConanFile):
                          'CMAKE_INSTALL_RPATH="\$ORIGIN/../lib"',
                          'CMAKE_BUILD_TYPE=%s' % self.settings.build_type,
                          'CMAKE_CONFIGURATION_TYPES=%s' % self.settings.build_type,
-#                         'BUILD_SHARED_LIBS=OFF',
                          'BUILD_PACKAGE=OFF',
                          'BUILD_PERF_TESTS=OFF',
                          'BUILD_TESTS=OFF',
