@@ -138,12 +138,11 @@ class OpenCVConan(ConanFile):
             'WITH_MATLAB' : 'OFF',
             'WITH_VTK' : 'OFF',
 
-            'ENABLE_SSE3' : 'ON',
-            'ENABLE_SSE41' : 'ON',
-            'ENABLE_SSE42' : 'OFF',
-            'ENABLE_SSSE3' : 'ON',
-            'ENABLE_PRECOMPILED_HEADERS' : 'ON',
+            'CPU_BASELINE' : 'SSE3;SSE4_1',
+            'CPU_DISPATCH' : '',
+            #'CPU_DISPATCH' : 'SSE4_2;AVX;AVX2',
 
+            'ENABLE_PRECOMPILED_HEADERS' : 'ON',
         }
 
         cmake.configure(source_dir='../opencv', build_dir='build', defs=cmake_args)
