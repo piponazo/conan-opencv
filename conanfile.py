@@ -33,6 +33,8 @@ class OpenCVConan(ConanFile):
         'opencv_photo': [True, False],
         'opencv_stitching': [True, False],
         'precompiled_headers': [True, False],
+        'ffmpeg': [True, False],
+        'webcam': [True, False],
         'shared': [True, False],
     }
 
@@ -51,7 +53,9 @@ class OpenCVConan(ConanFile):
         'opencv_photo=False', \
         'opencv_stitching=False', \
         'precompiled_headers=True', \
-        'shared=False'
+        'ffmpeg=False', \
+        'webcam=False', \
+        'shared=True'
 
     def source(self):
         self.run('git clone --depth 1 --branch %s %s' % (self.version, self.source_url))
@@ -111,6 +115,7 @@ class OpenCVConan(ConanFile):
             'WITH_TIFF' : 'ON',
             'WITH_JPEG' : 'ON',
             'WITH_GTK' : 'ON',
+            'WITH_FFMPEG' : self.options.ffmpeg,
 
             'BUILD_PROTOBUF' : 'OFF',
 
@@ -127,13 +132,13 @@ class OpenCVConan(ConanFile):
             'WITH_OPENCLAMDBLAS' : 'OFF',
             'WITH_OPENCLAMDFFT' : 'OFF',
             'WITH_OPENCL_SVM' : 'OFF',
-            'WITH_FFMPEG' : 'OFF',
             'WITH_PVAPI' : 'OFF',
             'WITH_GSTREAMER' : 'OFF',
             'WITH_JASPER' : 'OFF',
-            'WITH_V4L' : 'OFF',
             'WITH_GIGEAPI' : 'OFF',
             'WITH_GPHOTO2' : 'OFF',
+            'WITH_V4L' : self.options.webcam,
+            'WITH_LIBV4L' : self.options.webcam,
             'WITH_LIBV4L' : 'OFF',
             'WITH_MATLAB' : 'OFF',
             'WITH_VTK' : 'OFF',
