@@ -1,4 +1,3 @@
-import os
 from conans import ConanFile, tools, CMake
 
 class OpenCVConan(ConanFile):
@@ -61,9 +60,6 @@ class OpenCVConan(ConanFile):
         self.run('git clone --depth 1 --branch %s %s' % (self.version, self.source_url))
 
     def build(self):
-        build_path = 'build'
-        os.makedirs(build_path)
-
         tools.replace_in_file("opencv/CMakeLists.txt",
             "project(OpenCV CXX C)",
             """project(OpenCV CXX C)
@@ -74,7 +70,6 @@ class OpenCVConan(ConanFile):
         cmake_args = {
             'CMAKE_CONFIGURATION_TYPES' : self.settings.build_type,
             'CMAKE_BUILD_TYPE' : self.settings.build_type,
-            'BUILD_SHARED_LIBS' : 'ON',
             'BUILD_PACKAGE' : 'OFF',
             'BUILD_PERF_TESTS' : 'OFF',
             'BUILD_TESTS' : 'OFF',
