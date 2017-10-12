@@ -103,6 +103,7 @@ class OpenCVConan(ConanFile):
             'CMAKE_VERBOSE_MAKEFILE' : 'OFF',
 
             'BUILD_ZLIB' : 'ON',
+            'BUILD_PNG' : 'ON',
             'WITH_PNG' : 'ON',
             'WITH_TIFF' : 'ON',
             'WITH_JPEG' : 'ON',
