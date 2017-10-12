@@ -15,6 +15,7 @@ class OpenCVConan(ConanFile):
     url = 'https://github.com/piponazo/conan-opencv'
     source_url = 'https://github.com/opencv/opencv.git'
     license = 'MIT'
+    generators = 'cmake'
 
     options = {
         'opencv_core': [True, False],
@@ -57,10 +58,15 @@ class OpenCVConan(ConanFile):
         build_path = 'build'
         os.makedirs(build_path)
 
+        tools.replace_in_file("opencv/CMakeLists.txt",
+            "project(OpenCV CXX C)",
+            """project(OpenCV CXX C)
+               include(${CMAKE_BINARY_DIR}/../conanbuildinfo.cmake)
+               conan_basic_setup()""")
+
         cmake = CMake(self, parallel=True)
         cmake_args = {
             'CMAKE_CONFIGURATION_TYPES' : self.settings.build_type,
-            #'CMAKE_INSTALL_RPATH="\$ORIGIN/../lib"',
             'CMAKE_BUILD_TYPE' : self.settings.build_type,
             'BUILD_SHARED_LIBS' : 'ON',
             'BUILD_PACKAGE' : 'OFF',
