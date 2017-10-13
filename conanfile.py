@@ -114,6 +114,7 @@ class OpenCVConan(ConanFile):
 
             'BUILD_PROTOBUF' : 'OFF',
 
+            'WITH_LAPACK' : 'OFF',
             'WITH_IPP' : 'OFF',
             'WITH_QT' : 'OFF',
             'WITH_OPENMP' : 'OFF',
