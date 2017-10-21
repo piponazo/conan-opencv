@@ -8,7 +8,7 @@ class OpenCVTestConan(ConanFile):
     generators = "cmake"
 
     def imports(self):
-        self.copy('*.dll', src='x64/vc12/bin/', dst=os.sep.join(['.', 'bin', '%s' % self.settings.build_type]))
+        self.copy('*.dll', src='x64/vc%s/bin/' % self.settings.compiler.version, dst='bin')
         self.copy('*.dylib', src='lib', dst='lib')
 
     def build(self):
