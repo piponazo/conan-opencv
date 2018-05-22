@@ -8,7 +8,7 @@ class OpenCVConan(ConanFile):
     This recipe requires conan 0.25.1 (At least)
     """
     name = 'OpenCV'
-    version = '3.3.0'
+    version = '3.4.1'
     settings = 'os', 'compiler', 'build_type', 'arch'
     description = 'OpenCV recipe for the opencv repository'
     url = 'https://github.com/piponazo/conan-opencv'
@@ -57,19 +57,17 @@ class OpenCVConan(ConanFile):
         'shared=True'
 
     def source(self):
-        self.run('git clone --depth 1 --branch %s %s' % (self.version, self.source_url))
+        tools.get('https://github.com/opencv/opencv/archive/%s.zip' % self.version)
 
     def build(self):
-        tools.replace_in_file("opencv/CMakeLists.txt",
+        tools.replace_in_file("opencv-%s/CMakeLists.txt" % self.version,
             "project(OpenCV CXX C)",
             """project(OpenCV CXX C)
-               include(${CMAKE_BINARY_DIR}/../conanbuildinfo.cmake)
+               include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
                conan_basic_setup()""")
 
         cmake = CMake(self, parallel=True)
         cmake_args = {
-            'CMAKE_CONFIGURATION_TYPES' : self.settings.build_type,
-            'CMAKE_BUILD_TYPE' : self.settings.build_type,
             'BUILD_PACKAGE' : 'OFF',
             'BUILD_PERF_TESTS' : 'OFF',
             'BUILD_TESTS' : 'OFF',
@@ -146,7 +144,7 @@ class OpenCVConan(ConanFile):
             'ENABLE_PRECOMPILED_HEADERS' : 'ON',
         }
 
-        cmake.configure(source_dir='../opencv', build_dir='build', defs=cmake_args)
+        cmake.configure(source_dir='opencv-%s' % self.version, defs=cmake_args)
         cmake.build(target='install')
 
     def package_info(self):
