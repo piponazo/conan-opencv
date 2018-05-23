@@ -10,9 +10,6 @@ conan_basic_setup()
 
 if (UNIX)
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra")
-    if (NOT APPLE)
-        set(CMAKE_INSTALL_RPATH "$ORIGIN/../lib")
-    endif ()
 endif ()
 
 find_package(OpenCV REQUIRED)
