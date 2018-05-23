@@ -1,9 +1,10 @@
 env:
    global:
-     - CONAN_REFERENCE: "OpenCV/3.3.0"
+     - CONAN_REFERENCE: "OpenCV/3.4.1"
      - CONAN_USERNAME: "piponazo"
      - CONAN_LOGIN_USERNAME: "piponazo"
      - CONAN_CHANNEL: "testing"
+     - CONAN_UPLOAD: "https://api.bintray.com/conan/piponazo/piponazo"
      
 linux: &linux
    os: linux
