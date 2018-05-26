@@ -27,3 +27,11 @@ Investigate the following options:
     - Parallel framework
     - Eigen integration
     - World
+    - Add Examples in `test_package` to check that we can use each of the modules enabled
+
+# Personal notes
+
+## OpenCL
+
+My personal laptop has a Iris Pro Graphics 5200 and according to this (link)[https://software.intel.com/en-us/node/540387]
+it should be compatible with OpenCL 1.2.

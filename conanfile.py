@@ -38,6 +38,7 @@ class OpenCVConan(ConanFile):
         'ffmpeg': [True, False],
         'webcam': [True, False],
         'gui': ["GTK3", "GTK2", "QT", "None"],
+        'opencl': [True, False],
         'shared': [True, False],
     }
 
@@ -62,6 +63,7 @@ class OpenCVConan(ConanFile):
         'ffmpeg=False', \
         'webcam=True', \
         'gui=None', \
+        'opencl=False', \
         'shared=True'
 
     def system_requirements(self):
@@ -137,7 +139,7 @@ class OpenCVConan(ConanFile):
             'WITH_1394' : 'OFF',
             'WITH_CUDA' : 'OFF',
             'WITH_CUFFT' : 'OFF',
-            'WITH_OPENCL' : 'OFF',
+            'WITH_OPENCL' : self.options.opencl,
             'WITH_OPENCLAMDBLAS' : 'OFF',
             'WITH_OPENCLAMDFFT' : 'OFF',
             'WITH_OPENCL_SVM' : 'OFF',
