@@ -68,6 +68,7 @@ class OpenCVConan(ConanFile):
 
         cmake = CMake(self, parallel=True)
         cmake_args = {
+            'BUILD_WITH_STATIC_CRT': str(self.settings.compiler.runtime).startswith("MT"),
             'BUILD_PACKAGE' : 'OFF',
             'BUILD_PERF_TESTS' : 'OFF',
             'BUILD_TESTS' : 'OFF',
