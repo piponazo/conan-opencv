@@ -37,7 +37,7 @@ class OpenCVConan(ConanFile):
         'precompiled_headers': [True, False],
         'ffmpeg': [True, False],
         'webcam': [True, False],
-        'gui': ["GTK3", "GTK2", "QT"],
+        'gui': ["GTK3", "GTK2", "QT", "None"],
         'shared': [True, False],
     }
 
@@ -61,7 +61,7 @@ class OpenCVConan(ConanFile):
         'precompiled_headers=True', \
         'ffmpeg=False', \
         'webcam=True', \
-        'gui=GTK2', \
+        'gui=None', \
         'shared=True'
 
     def system_requirements(self):
