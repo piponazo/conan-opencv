@@ -15,3 +15,15 @@ https://github.com/opencv/opencv/issues/8010
 
 It's not clear if it's a defect in OpenCV or a compiler bug. For the moment we disable the compilation of OpenCV with
 clang-3.9 from the travis matrix.
+
+# TODO
+
+Investigate the following options:
+    - OpenCL
+    - CUDA
+    - GUI mode: GTK, Win, Mac, GTK, QT
+        - GTK. The dev package brings 120MB of dependencies ...
+    - Check the CPU features BASELINE/DISTPATCH
+    - Parallel framework
+    - Eigen integration
+    - World
