@@ -37,6 +37,7 @@ class OpenCVConan(ConanFile):
         'precompiled_headers': [True, False],
         'ffmpeg': [True, False],
         'webcam': [True, False],
+        'gui': ["GTK3", "GTK2", "QT"],
         'shared': [True, False],
     }
 
@@ -60,10 +61,22 @@ class OpenCVConan(ConanFile):
         'precompiled_headers=True', \
         'ffmpeg=False', \
         'webcam=True', \
+        'gui=GTK2', \
         'shared=True'
+
+    def system_requirements(self):
+        if tools.os_info.is_linux:
+            installer = tools.SystemPackageTool()
+            if self.options.gui == "GTK2":
+                if tools.os_info.linux_distro == "ubuntu":
+                    installer.install('libgtk2.0-dev')
+            elif self.options.gui == "GTK3":
+                if tools.os_info.linux_distro == "ubuntu":
+                    installer.install('libgtk-3-dev')
 
     def source(self):
         tools.get('https://github.com/opencv/opencv/archive/%s.zip' % self.version)
+
 
     def build(self):
         tools.replace_in_file("opencv-%s/CMakeLists.txt" % self.version,
@@ -113,12 +126,10 @@ class OpenCVConan(ConanFile):
             'WITH_PNG' : 'ON',
             'WITH_TIFF' : 'ON',
             'WITH_JPEG' : 'ON',
-            'WITH_GTK' : 'ON',
             'WITH_FFMPEG' : self.options.ffmpeg,
 
             'WITH_LAPACK' : 'OFF',
             'WITH_IPP' : 'OFF',
-            'WITH_QT' : 'OFF',
             'WITH_OPENMP' : 'OFF',
             'WITH_WEBP' : 'OFF',
             'WITH_OPENEXR' : 'OFF',
@@ -146,6 +157,15 @@ class OpenCVConan(ConanFile):
 
             'ENABLE_PRECOMPILED_HEADERS' : 'ON',
         }
+
+        if self.options.gui == "GTK2":
+            cmake_args.update({'WITH_GTK_2_X': 'ON',
+                               'WITH_GTK': 'ON'
+                              })
+        elif self.options.gui == "GTK3":
+            cmake_args.update({'WITH_GTK': 'ON'})
+        elif self.options.gui == "QT":
+            cmake_args.update({'WITH_QT': 'ON'})
 
         if self.settings.compiler == "Visual Studio":
             cmake_args.update({'BUILD_WITH_STATIC_CRT':
