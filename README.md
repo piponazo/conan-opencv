@@ -2,7 +2,7 @@
 
 | Bintray | Linux & Mac | Windows | 
 |:--------:|:---------:|:-------------:|
-|[ ![Download](https://api.bintray.com/packages/piponazo/piponazo/OpenCV%3Apiponazo/images/download.svg) ](https://bintray.com/piponazo/piponazo/OpenCV%3Apiponazo/_latestVersion)|[![Build Status](https://travis-ci.org/piponazo/conan-opencv.svg?branch=3.4-testing)](https://travis-ci.org/piponazo/conan-opencv)|Not Yet|
+|[ ![Download](https://api.bintray.com/packages/piponazo/piponazo/OpenCV%3Apiponazo/images/download.svg) ](https://bintray.com/piponazo/piponazo/OpenCV%3Apiponazo/_latestVersion)|[![Build Status](https://travis-ci.org/piponazo/conan-opencv.svg?branch=3.4-testing)](https://travis-ci.org/piponazo/conan-opencv)|[![Build status](https://ci.appveyor.com/api/projects/status/1jqerfo5583d44wq?svg=true)](https://ci.appveyor.com/project/piponazo/conan-opencv)|
 
 
 # conan-opencv
