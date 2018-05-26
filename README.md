@@ -7,3 +7,11 @@
 
 # conan-opencv
 Conan recipe for the opencv library (Open Source Computer Vision)
+
+# Known issues
+
+The compilation of opencv with clang-3.9 fails. There is an issue opened in OpenCV about it:
+https://github.com/opencv/opencv/issues/8010
+
+It's not clear if it's a defect in OpenCV or a compiler bug. For the moment we disable the compilation of OpenCV with
+clang-3.9 from the travis matrix.
