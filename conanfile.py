@@ -21,16 +21,19 @@ class OpenCVConan(ConanFile):
         'opencv_features2d': [True, False], # features2d depends on ml and flann
         'opencv_flann': [True, False],
         'opencv_ml': [True, False],
-        'opencv_video': [True, False],
         'opencv_imgproc': [True, False],
         'opencv_calib3d': [True, False],    # calib3d needs features2d and imgproc
         'opencv_highgui': [True, False],    # high_gui depends on imgcodecs & videoio
         'opencv_imgcodecs': [True, False],
+        'opencv_video': [True, False],
         'opencv_videoio': [True, False],
+        'opencv_videostab': [True, False],
         'opencv_shape': [True, False],
         'opencv_objdetect': [True, False],
         'opencv_photo': [True, False],
         'opencv_stitching': [True, False],
+        'opencv_superres': [True, False],
+        'opencv_world': [True, False],      # Generate a single lib with all the modules
         'precompiled_headers': [True, False],
         'ffmpeg': [True, False],
         'webcam': [True, False],
@@ -41,19 +44,22 @@ class OpenCVConan(ConanFile):
         'opencv_features2d=True', \
         'opencv_flann=True', \
         'opencv_ml=True', \
-        'opencv_video=False', \
         'opencv_imgproc=True', \
         'opencv_calib3d=True', \
         'opencv_highgui=True', \
         'opencv_imgcodecs=True', \
+        'opencv_video=True', \
         'opencv_videoio=True', \
+        'opencv_videostab=True', \
+        'opencv_objdetect=True', \
         'opencv_shape=False', \
-        'opencv_objdetect=False', \
-        'opencv_photo=False', \
-        'opencv_stitching=False', \
+        'opencv_photo=True', \
+        'opencv_stitching=True', \
+        'opencv_superres=False', \
+        'opencv_world=False', \
         'precompiled_headers=True', \
         'ffmpeg=False', \
-        'webcam=False', \
+        'webcam=True', \
         'shared=True'
 
     def source(self):
@@ -98,11 +104,11 @@ class OpenCVConan(ConanFile):
             'BUILD_opencv_python_bindings_generator': 'ON',
             'BUILD_opencv_shape': self.options.opencv_shape,
             'BUILD_opencv_stitching': self.options.opencv_stitching,
-            'BUILD_opencv_superres' : 'OFF',
+            'BUILD_opencv_superres' : self.options.opencv_superres,
             'BUILD_opencv_video': self.options.opencv_video,
             'BUILD_opencv_videoio': self.options.opencv_videoio,
-            'BUILD_opencv_videostab' : 'OFF',
-            'BUILD_opencv_world' : 'OFF',
+            'BUILD_opencv_videostab' : self.options.opencv_videostab,
+            'BUILD_opencv_world' : self.options.opencv_world,
 
             'WITH_PNG' : 'ON',
             'WITH_TIFF' : 'ON',
