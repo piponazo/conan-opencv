@@ -68,7 +68,6 @@ class OpenCVConan(ConanFile):
 
         cmake = CMake(self, parallel=True)
         cmake_args = {
-            'BUILD_WITH_STATIC_CRT': str(self.settings.compiler.runtime).startswith("MT"),
             'BUILD_PACKAGE' : 'OFF',
             'BUILD_PERF_TESTS' : 'OFF',
             'BUILD_TESTS' : 'OFF',
@@ -141,6 +140,10 @@ class OpenCVConan(ConanFile):
 
             'ENABLE_PRECOMPILED_HEADERS' : 'ON',
         }
+
+        if self.settings.compiler == "Visual Studio":
+            cmake_args.update({'BUILD_WITH_STATIC_CRT':
+                               str(self.settings.compiler.runtime).startswith("MT")})
 
         cmake.configure(source_dir='opencv-%s' % self.version, defs=cmake_args)
         cmake.build(target='install')
