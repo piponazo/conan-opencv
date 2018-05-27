@@ -154,9 +154,6 @@ class OpenCVConan(ConanFile):
             'WITH_MATLAB' : 'OFF',
             'WITH_VTK' : 'OFF',
 
-            'CPU_BASELINE' : 'SSE3;SSE4_1',
-            'CPU_DISPATCH' : '',
-
             'ENABLE_PRECOMPILED_HEADERS' : 'ON',
         }
 
