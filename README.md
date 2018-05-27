@@ -24,8 +24,6 @@ Investigate the following options:
 * CUDA
 * GUI mode: GTK, Win, Mac, GTK, QT
 *   - GTK. The dev package brings 120MB of dependencies ...
-* Check the CPU features BASELINE/DISTPATCH
-* Parallel framework
 * Eigen integration
 * World
 * Add Examples in `test_package` to check that we can use each of the modules enabled
@@ -43,3 +41,13 @@ it should be compatible with OpenCL 1.2.
 Read more info about this topic [here](https://github.com/opencv/opencv/wiki/CPU-optimizations-build-options).
 
 We have decided to use the default options.
+
+## Parallel frameworks
+
+Defaults used in each platform:
+
+In this [link](https://docs.opencv.org/3.4.1/d7/dff/tutorial_how_to_use_OpenCV_parallel_for_.html) you can find more information about how to write parallel algorithms in OpenCV and the different parallel frameworks. For the moment we do not specify anything about the parallel framework to be used. Therefore, OpenCV automatically find a default framework for each platform:
+
+* Linux: pthreads
+* Mac OSX: GCD
+* Windows: Concurrency
