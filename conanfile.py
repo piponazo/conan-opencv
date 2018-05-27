@@ -37,7 +37,7 @@ class OpenCVConan(ConanFile):
         'precompiled_headers': [True, False],
         'ffmpeg': [True, False],
         'webcam': [True, False],
-        'gui': ["GTK3", "GTK2", "QT", "None"],
+        'gui': ["GTK3", "GTK2", "QT", "WIN", "None"],
         'opencl': [True, False],
         'eigen': [True, False],
         'shared': [True, False],
@@ -167,14 +167,23 @@ class OpenCVConan(ConanFile):
             'ENABLE_PRECOMPILED_HEADERS' : 'ON',
         }
 
-        if self.options.gui == "GTK2":
-            cmake_args.update({'WITH_GTK_2_X': 'ON',
-                               'WITH_GTK': 'ON'
-                              })
-        elif self.options.gui == "GTK3":
-            cmake_args.update({'WITH_GTK': 'ON'})
-        elif self.options.gui == "QT":
-            cmake_args.update({'WITH_QT': 'ON'})
+        if tools.os_info.is_linux:
+            if self.options.gui == "GTK2":
+                cmake_args.update({'WITH_GTK_2_X': 'ON',
+                                   'WITH_GTK': 'ON',
+                                   'WITH_QT': 'OFF'
+                                  })
+            elif self.options.gui == "GTK3":
+                cmake_args.update({'WITH_GTK': 'ON',
+                                   'WITH_QT': 'OFF'
+                                  })
+            elif self.options.gui == "QT":
+                cmake_args.update({'WITH_QT': 'ON',
+                                   'WITH_GTK': 'OFF'
+                                  })
+        elif tools.os_info.is_windows:
+            if self.options.gui == "None":
+                cmake_args.update({'WITH_WIN32UI': 'OFF'})
 
         if self.settings.compiler == "Visual Studio":
             cmake_args.update({'BUILD_WITH_STATIC_CRT':
