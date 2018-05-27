@@ -39,6 +39,7 @@ class OpenCVConan(ConanFile):
         'webcam': [True, False],
         'gui': ["GTK3", "GTK2", "QT", "None"],
         'opencl': [True, False],
+        'eigen': [True, False],
         'shared': [True, False],
     }
 
@@ -64,7 +65,9 @@ class OpenCVConan(ConanFile):
         'webcam=True', \
         'gui=None', \
         'opencl=False', \
+        'eigen=False', \
         'shared=True'
+
 
     def system_requirements(self):
         if tools.os_info.is_linux:
@@ -75,6 +78,12 @@ class OpenCVConan(ConanFile):
             elif self.options.gui == "GTK3":
                 if tools.os_info.linux_distro == "ubuntu":
                     installer.install('libgtk-3-dev')
+
+
+    def configure(self):
+        if self.options.eigen:
+            self.requires("eigen/3.3.4@conan/stable")
+
 
     def source(self):
         tools.get('https://github.com/opencv/opencv/archive/%s.zip' % self.version)
@@ -153,6 +162,7 @@ class OpenCVConan(ConanFile):
             'WITH_LIBV4L' : 'OFF',
             'WITH_MATLAB' : 'OFF',
             'WITH_VTK' : 'OFF',
+            'WITH_EIGEN' : self.options.eigen,
 
             'ENABLE_PRECOMPILED_HEADERS' : 'ON',
         }

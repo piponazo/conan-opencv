@@ -24,8 +24,6 @@ Investigate the following options:
 * CUDA
 * GUI mode: GTK, Win, Mac, GTK, QT
 *   - GTK. The dev package brings 120MB of dependencies ...
-* Eigen integration
-* World
 * Add Examples in `test_package` to check that we can use each of the modules enabled
 * Intel IPP
 
