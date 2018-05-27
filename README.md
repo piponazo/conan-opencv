@@ -19,19 +19,27 @@ clang-3.9 from the travis matrix.
 # TODO
 
 Investigate the following options:
-    - OpenCL
-    - CUDA
-    - GUI mode: GTK, Win, Mac, GTK, QT
-        - GTK. The dev package brings 120MB of dependencies ...
-    - Check the CPU features BASELINE/DISTPATCH
-    - Parallel framework
-    - Eigen integration
-    - World
-    - Add Examples in `test_package` to check that we can use each of the modules enabled
+
+* OpenCL
+* CUDA
+* GUI mode: GTK, Win, Mac, GTK, QT
+*   - GTK. The dev package brings 120MB of dependencies ...
+* Check the CPU features BASELINE/DISTPATCH
+* Parallel framework
+* Eigen integration
+* World
+* Add Examples in `test_package` to check that we can use each of the modules enabled
+* Intel IPP
 
 # Personal notes
 
 ## OpenCL
 
-My personal laptop has a Iris Pro Graphics 5200 and according to this (link)[https://software.intel.com/en-us/node/540387]
+My personal laptop has a Iris Pro Graphics 5200 and according to this [link](https://software.intel.com/en-us/node/540387)
 it should be compatible with OpenCL 1.2.
+
+## CPU Baseline/Dispatch
+
+Read more info about this topic [here](https://github.com/opencv/opencv/wiki/CPU-optimizations-build-options).
+
+We have decided to use the default options.
