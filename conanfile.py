@@ -66,18 +66,22 @@ class OpenCVConan(ConanFile):
         'gui=None', \
         'opencl=False', \
         'eigen=False', \
+        'cuda=False', \
         'shared=True'
 
 
     def system_requirements(self):
         if tools.os_info.is_linux:
             installer = tools.SystemPackageTool()
-            if self.options.gui == "GTK2":
-                if tools.os_info.linux_distro == "ubuntu":
+            if tools.os_info.linux_distro == "ubuntu":
+                if self.options.gui == "GTK2":
                     installer.install('libgtk2.0-dev')
-            elif self.options.gui == "GTK3":
-                if tools.os_info.linux_distro == "ubuntu":
+                elif self.options.gui == "GTK3":
                     installer.install('libgtk-3-dev')
+
+                if self.options.ffmpeg:
+                    installer.install('libavcodec-dev libavformat-dev libavutil-dev libswscale-dev libavresample-dev')
+
 
 
     def configure(self):
