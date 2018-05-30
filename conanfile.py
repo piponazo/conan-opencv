@@ -40,6 +40,7 @@ class OpenCVConan(ConanFile):
         'gui': ["GTK3", "GTK2", "QT", "WIN", "None"],
         'opencl': [True, False],
         'eigen': [True, False],
+        'cuda': [True, False],
         'shared': [True, False],
     }
 
@@ -150,7 +151,7 @@ class OpenCVConan(ConanFile):
             'WITH_OPENEXR' : 'OFF',
             'WITH_TBB' : 'OFF',
             'WITH_1394' : 'OFF',
-            'WITH_CUDA' : 'OFF',
+            'WITH_CUDA' : self.options.cuda,
             'WITH_CUFFT' : 'OFF',
             'WITH_OPENCL' : self.options.opencl,
             'WITH_OPENCLAMDBLAS' : 'OFF',
@@ -185,6 +186,9 @@ class OpenCVConan(ConanFile):
                 cmake_args.update({'WITH_QT': 'ON',
                                    'WITH_GTK': 'OFF'
                                   })
+            if self.options.cuda:
+                cmake_args.update({'CUDA_NVCC_FLAGS': '--expt-relaxed-constexpr'})
+
         elif tools.os_info.is_windows:
             if self.options.gui == "None":
                 cmake_args.update({'WITH_WIN32UI': 'OFF'})
