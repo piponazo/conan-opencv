@@ -164,7 +164,6 @@ class OpenCVConan(ConanFile):
             'WITH_GPHOTO2' : 'OFF',
             'WITH_V4L' : self.options.webcam,
             'WITH_LIBV4L' : self.options.webcam,
-            'WITH_LIBV4L' : 'OFF',
             'WITH_MATLAB' : 'OFF',
             'WITH_VTK' : 'OFF',
             'WITH_EIGEN' : self.options.eigen,
