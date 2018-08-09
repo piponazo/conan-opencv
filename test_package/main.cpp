@@ -4,6 +4,10 @@
 #include <opencv2/core/ocl.hpp>
 #endif
 
+#ifdef CV_WITH_FEATURES2D
+#include <opencv2/features2d.hpp>
+#endif
+
 #include <iostream>
 
 using namespace std;
@@ -38,6 +42,14 @@ int main(int, char **)
     }
 
     cv::ocl::Device(context.device(0)); //Here is where you change which 
+#endif
+
+#ifdef CV_WITH_FEATURES2D
+    cout << "Let's use some Features2D code" << endl;
+    vector<cv::KeyPoint> keypoints;
+    const int fast_threshold = 20;
+    const bool nonmaxSuppression = true;
+    cv::FAST(mat, keypoints, fast_threshold, nonmaxSuppression);
 #endif
 
     return EXIT_SUCCESS;
