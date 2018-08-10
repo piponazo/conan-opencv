@@ -9,12 +9,13 @@ class OpenCVTestConan(ConanFile):
 
     def imports(self):
         self.copy('*.dll', src='x64/vc%s/bin/' % self.settings.compiler.version, dst='bin')
-        self.copy('*.dylib', src='lib', dst='lib')
+        self.copy('*.dylib', src='lib', dst='bin')
 
     def build(self):
         cmake = CMake(self)
-        cmake.configure(source_dir=self.conanfile_directory, build_dir="./")
+        cmake.configure()
         cmake.build()
 
     def test(self):
-        self.run(os.sep.join(['.', 'bin', 'example']))
+        os.chdir('bin')
+        self.run(os.sep.join(['.', 'example']))
