@@ -5,10 +5,9 @@ class OpenCVConan(ConanFile):
     This recipe generates OpenCV with a classical setup that is useful for most of the cases.
     If you want to experiment with additional features use the provided options.
 
-    This recipe requires conan 0.25.1 (At least)
     """
     name = 'OpenCV'
-    version = '3.4.1'
+    version = '3.4.3'
     settings = 'os', 'compiler', 'build_type', 'arch'
     description = 'OpenCV recipe for the opencv repository'
     url = 'https://github.com/piponazo/conan-opencv'

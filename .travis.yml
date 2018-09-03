@@ -1,6 +1,6 @@
 env:
    global:
-     - CONAN_REFERENCE: "OpenCV/3.4.1"
+     - CONAN_REFERENCE: "OpenCV/3.4.3"
      - CONAN_USERNAME: "piponazo"
      - CONAN_LOGIN_USERNAME: "piponazo"
      - CONAN_CHANNEL: "testing"
