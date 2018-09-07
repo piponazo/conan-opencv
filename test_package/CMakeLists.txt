@@ -12,7 +12,11 @@ if (UNIX)
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra")
 endif ()
 
-find_package(OpenCV REQUIRED)
+if (CONAN_USER_OPENCV_shared STREQUAL False)
+    set(OpenCV_STATIC ON)
+endif()
+
+find_package(OpenCV 3.4 REQUIRED)
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 

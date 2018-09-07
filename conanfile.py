@@ -5,10 +5,9 @@ class OpenCVConan(ConanFile):
     This recipe generates OpenCV with a classical setup that is useful for most of the cases.
     If you want to experiment with additional features use the provided options.
 
-    This recipe requires conan 0.25.1 (At least)
     """
     name = 'OpenCV'
-    version = '3.4.1'
+    version = '3.4.3'
     settings = 'os', 'compiler', 'build_type', 'arch'
     description = 'OpenCV recipe for the opencv repository'
     url = 'https://github.com/piponazo/conan-opencv'
@@ -33,6 +32,7 @@ class OpenCVConan(ConanFile):
         'opencv_photo': [True, False],
         'opencv_stitching': [True, False],
         'opencv_superres': [True, False],
+        'opencv_viz': [True, False],
         'opencv_world': [True, False],      # Generate a single lib with all the modules
         'precompiled_headers': [True, False],
         'ffmpeg': [True, False],
@@ -41,6 +41,7 @@ class OpenCVConan(ConanFile):
         'opencl': [True, False],
         'eigen': [True, False],
         'cuda': [True, False],
+        'vtk': [True, False],
         'shared': [True, False],
     }
 
@@ -60,6 +61,7 @@ class OpenCVConan(ConanFile):
         'opencv_photo=True', \
         'opencv_stitching=True', \
         'opencv_superres=False', \
+        'opencv_viz=True', \
         'opencv_world=False', \
         'precompiled_headers=True', \
         'ffmpeg=False', \
@@ -68,6 +70,7 @@ class OpenCVConan(ConanFile):
         'opencl=False', \
         'eigen=False', \
         'cuda=False', \
+        'vtk=False', \
         'shared=True'
 
 
@@ -83,6 +86,10 @@ class OpenCVConan(ConanFile):
                 if self.options.ffmpeg:
                     installer.install('libavcodec-dev libavformat-dev libavutil-dev libswscale-dev libavresample-dev')
 
+                # TODO: When some VTK recipe is available we should use it. Right now we can only use
+                # VTK on Linux
+                if self.options.vtk:
+                    installer.install('libvtk6-dev')
 
 
     def configure(self):
@@ -137,6 +144,7 @@ class OpenCVConan(ConanFile):
             'BUILD_opencv_video': self.options.opencv_video,
             'BUILD_opencv_videoio': self.options.opencv_videoio,
             'BUILD_opencv_videostab' : self.options.opencv_videostab,
+            'BUILD_opencv_viz' : self.options.opencv_viz,
             'BUILD_opencv_world' : self.options.opencv_world,
 
             'WITH_PNG' : 'ON',
@@ -165,7 +173,7 @@ class OpenCVConan(ConanFile):
             'WITH_V4L' : self.options.webcam,
             'WITH_LIBV4L' : self.options.webcam,
             'WITH_MATLAB' : 'OFF',
-            'WITH_VTK' : 'OFF',
+            'WITH_VTK' : self.options.vtk,
             'WITH_EIGEN' : self.options.eigen,
 
             'ENABLE_PRECOMPILED_HEADERS' : 'ON',
@@ -205,3 +213,4 @@ class OpenCVConan(ConanFile):
             if activated == 'True':
                 self.cpp_info.libs.append(option)
         self.cpp_info.libdirs = ['lib']  # Directories where libraries can be found
+        self.user_info.shared = self.options.shared
